@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import PicturesPage from '../pages/picturesPage/PicturesPage';
 import FavoritesPage from '../pages/favoritesPage/FavoritesPage';
+import PicturePage from '../pages/picturePage/PicturePage';
 
 const Router = createBrowserRouter([
     {
@@ -18,7 +19,7 @@ const Router = createBrowserRouter([
     },
     {
       path: '/image',
-      /* element: ¿qué falta aquí? */  
+      element: <PicturePage />
     }
     //crea la ruta que te falta
 ]);
