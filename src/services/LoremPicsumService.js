@@ -21,9 +21,12 @@ export const LoremPicsumService = () => {
   }; 
 
   const getRandomGrayscale = (size) => {
-    const response = axios.get(`${urlGetGrayscale.replace('{image}', '').replace('{size}', size)}`);
+    const randomImageId = Math.floor(Math.random() * 1000); 
+    const url = `${baseURL}/id/${randomImageId}/${size}?grayscale`;
+    // console.log('URL generada:', url); 
+    const response = axios.get(url);
     return response;
-  }; 
+  };
 
   return {
     getAll,
@@ -31,6 +34,7 @@ export const LoremPicsumService = () => {
     getRandomGrayscale,
   }
 };
+
 
 //Prueba de la URL GetById
 // const testGetById = async () => {
@@ -45,3 +49,16 @@ export const LoremPicsumService = () => {
 // };
 
 // testGetById();
+
+// Prueba de la función getRandomGrayscale
+// const testGetRandomGrayscale = async () => {
+//   try {
+//     const width = 300; 
+//     const response = await LoremPicsumService().getRandomGrayscale(width);
+//     console.log("URL de la imagen aleatoria en escala de grises:", response.config.url);
+//   } catch (error) {
+//     console.error('Error al obtener la imagen aleatoria en escala de grises:', error);
+//   }
+// };
+
+// testGetRandomGrayscale();
