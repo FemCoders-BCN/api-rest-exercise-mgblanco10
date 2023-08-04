@@ -51,14 +51,14 @@ export const LoremPicsumService = () => {
 // testGetById();
 
 // Prueba de la función getRandomGrayscale
-// const testGetRandomGrayscale = async () => {
-//   try {
-//     const width = 300; 
-//     const response = await LoremPicsumService().getRandomGrayscale(width);
-//     console.log("URL de la imagen aleatoria en escala de grises:", response.config.url);
-//   } catch (error) {
-//     console.error('Error al obtener la imagen aleatoria en escala de grises:', error);
-//   }
-// };
+const testGetRandomGrayscale = async () => {
+  try {
+    const width = 300; 
+    const response = await LoremPicsumService().getRandomGrayscale(width);
+    console.log("URL de la imagen aleatoria en escala de grises:", response.config.url);
+  } catch (error) {
+    console.error('Error al obtener la imagen aleatoria en escala de grises:', error);
+  }
+};
 
-// testGetRandomGrayscale();
+testGetRandomGrayscale();
