@@ -11,10 +11,10 @@
 //     setLoading(true);
 //     setError(null);
 //     try {
-//       const size = 300;
+//       const size = '300';
 //       const response = await LoremPicsumService().getRandomGrayscale(size);
 //       console.log(response.data);
-  
+
 //       if (response.data && typeof response.data === 'string') {
 //         setRandomImage(response.data);
 //       } else {
@@ -34,7 +34,7 @@
 //         <p>INSTRUCCIONES</p>
 //         <li>Crea los componentes que necesites para imprimir lo siguiente (siguiendo el ejemplo del componente PictureObject):</li>
 //         <ol>
-//           <li>La fotografía (queremos ver la imagen en nuestra app, no queremos la url).</li>
+//           <li>La fotografía (queremos ver la imagen en nuestra app, no queremos la URL).</li>
 //         </ol>
 //         <li>Has de borrar estas instrucciones cuando lo tengas.</li>
 //         <li>Los estilos los has de realizar tú misma.</li>
@@ -45,14 +45,14 @@
 //       {error && <p>Error: {error}</p>}
 
 //       {randomImage && (
-//   <div>
-//     <img
-//       src={randomImage}
-//       alt="Imagen aleatoria en escala de grises"
-//       onError={() => console.log('Error al cargar la imagen')}
-//     />
-//   </div>
-// )}
+//         <div>
+//           <img
+//             src={randomImage}
+//             alt="Imagen aleatoria en escala de grises"
+//             onError={() => setError('Error al cargar la imagen')}
+//           />
+//         </div>
+//       )}
 
 //       <button onClick={handleGetRandomGrayscale} disabled={loading}>
 //         Obtener imagen en escala de grises
@@ -62,6 +62,8 @@
 // }
 
 // export default GrayscalePage;
+
+
 
 import React, { useState } from 'react';
 import Navbar from '../../components/navbar/Navbar';
@@ -76,7 +78,7 @@ function GrayscalePage() {
     setLoading(true);
     setError(null);
     try {
-      const size = 300;
+      const size = '300';
       const response = await LoremPicsumService().getRandomGrayscale(size);
       console.log(response.data);
 
@@ -109,7 +111,7 @@ function GrayscalePage() {
 
       {error && <p>Error: {error}</p>}
 
-      {randomImage && (
+      {randomImage ? (
         <div>
           <img
             src={randomImage}
@@ -117,6 +119,8 @@ function GrayscalePage() {
             onError={() => setError('Error al cargar la imagen')}
           />
         </div>
+      ) : (
+        <p>No se pudo cargar la imagen.</p>
       )}
 
       <button onClick={handleGetRandomGrayscale} disabled={loading}>
@@ -127,4 +131,3 @@ function GrayscalePage() {
 }
 
 export default GrayscalePage;
-
