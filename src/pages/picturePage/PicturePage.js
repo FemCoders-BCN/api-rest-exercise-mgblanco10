@@ -28,7 +28,7 @@ const PicturePage = () => {
       <h2>Aquí estará la imagen de la segunda llamada</h2>
       <Navbar />
       <div>
-        <h3>Imagen:</h3>
+        <h3 style={{margin:"5px"}}>Imagen:</h3>
         <input
           type="number"
           placeholder="Ingresa el ID de la imagen"

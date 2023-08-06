@@ -3,7 +3,6 @@ import axios from "axios";
 const baseURL = 'https://picsum.photos';
 const urlGetAll = '/v2/list';
 const urlGetById = '/id/{image}/{size}';
-const urlGetGrayscale = '/id/{image}/{size}/?grayscale'; 
 
 axios.defaults.baseURL = baseURL;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
