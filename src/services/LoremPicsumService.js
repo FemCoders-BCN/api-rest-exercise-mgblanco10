@@ -36,18 +36,18 @@ export const LoremPicsumService = () => {
 
 
 //Prueba de la URL GetById
-// const testGetById = async () => {
-//   try {
-//     const imageId = 1; 
-//     const imageSize = '200'; 
-//     const response = await LoremPicsumService().getById(imageId, imageSize);
-//     console.log("respuesta: " , response.config.url); 
-//   } catch (error) {
-//     console.error('Error al obtener la imagen por ID:', error);
-//   }
-// };
+const testGetById = async () => {
+  try {
+    const imageId = 1; 
+    const imageSize = '200'; 
+    const response = await LoremPicsumService().getById(imageId, imageSize);
+    console.log("respuesta: " , response.config.url); 
+  } catch (error) {
+    console.error('Error al obtener la imagen por ID:', error);
+  }
+};
 
-// testGetById();
+testGetById();
 
 // Prueba de la función getRandomGrayscale
 const testGetRandomGrayscale = async () => {
