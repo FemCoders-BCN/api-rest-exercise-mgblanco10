@@ -1,7 +1,32 @@
-import React from 'react'
-import Navbar from '../../components/navbar/Navbar'
+import React, { useState, useEffect }  from 'react';
+import Navbar from '../../components/navbar/Navbar';
+import axios from 'axios';
+import PictureList from '../../components/pictureList/PictureList';
+import PictureForm from '../../components/pictureForm/PictureForm';
 
 function FavoritesPage() {
+  const [pictures, setPictures] = useState([]);
+
+  const fetchPictures = async () => {
+    const response = await axios.get('http://localhost:5000/pictures'); 
+    setPictures(response.data);
+  };
+
+  useEffect(() => {
+    fetchPictures();
+  }, []);
+
+  const handleAddPicture = async (newPicture) => {
+    await axios.post('http://localhost:5000/pictures', newPicture); 
+    fetchPictures();
+  };
+
+  const handleDeletePicture = async (id) => {
+    await axios.delete(`http://localhost:5000/pictures/${id}`); 
+    fetchPictures();
+  };
+
+
   return (
     <main>
         <h2>Aquí estará la página principal donde guardarás tus objetos favoritos</h2>
@@ -25,6 +50,11 @@ function FavoritesPage() {
             <li>Has de borrar estas instrucciones cuando lo tengas.</li>
             <li>Los estilos los has de realizar tú misma.</li>
         </ul>
+      <div className="App">
+      <h1>Mis Imágenes Favoritas</h1>
+      <PictureForm onSubmit={handleAddPicture}/>
+      <PictureList pictures={pictures} onDelete={handleDeletePicture} />
+    </div>
     </main>
   )
 }
