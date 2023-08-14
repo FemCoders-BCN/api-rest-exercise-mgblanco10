@@ -1,17 +1,21 @@
 import React, { useState, useEffect }  from 'react';
 import Navbar from '../../components/navbar/Navbar';
-import axios from 'axios';
 import PictureList from '../../components/pictureList/PictureList';
 import PictureForm from '../../components/pictureForm/PictureForm.js';
-
+import {FavoriteService} from '../../services/FavoriteService';
 
 function FavoritesPage() {
+  const favoriteService = FavoriteService();
   const [pictures, setPictures] = useState([]);
   const [editingPictureId, setEditingPictureId] = useState(null);
 
   const fetchPictures = async () => {
-    const response = await axios.get('http://localhost:5000/pictures'); 
-    setPictures(response.data);
+    try {
+      const response = await favoriteService.getAllFavorites(); 
+      setPictures(response.data);
+    } catch (error) {
+      console.error('Error al obtener las imágenes favoritas:', error);
+    }
   };
 
   useEffect(() => {
@@ -19,38 +23,51 @@ function FavoritesPage() {
   }, []);
 
   const handleAddPicture = async (newPicture) => {
-    await axios.post('http://localhost:5000/pictures', newPicture); 
-    fetchPictures();
+    try {
+      await favoriteService.create(newPicture); 
+      fetchPictures(); 
+    } catch (error) {
+      console.error('Error al agregar la imagen favorita:', error);
+    }
   };
 
   const handleDeletePicture = async (id) => {
-    await axios.delete(`http://localhost:5000/pictures/${id}`); 
+    await favoriteService.remove(id);
     fetchPictures();
   };
   const handleEditPicture = (id) => {
     setEditingPictureId(id);
   };
 
-  const handleEditAuthor = async (id, newAuthor) => {
-    await axios.put(`http://localhost:5000/pictures/${id}`, { author: newAuthor });
-    setEditingPictureId(null); 
-    fetchPictures();
+  const handleEditAuthor = async (id, newAuthor, picture) => {
+    try {
+      const updatedPictureData = {
+        author: newAuthor,
+        download_url: picture.download_url
+      };
+  
+      const response = await favoriteService.update(id, updatedPictureData);
+      console.log('Respuesta de actualización:', response);
+      setEditingPictureId(null);
+      fetchPictures(); 
+    } catch (error) {
+      console.error('Error al editar el autor de la imagen:', error);
+    }
   };
-
 
   return (
     <main>
       <Navbar />
       <div className="App">
-      <h1>Mis Imágenes Favoritas</h1>
+      <h1>Mis Imágenes Favoritas guardadas en json-server</h1>
       <PictureForm onSubmit={handleAddPicture}/>
       <PictureList 
-          pictures={pictures} 
-          onDelete={handleDeletePicture}  
-          onEdit={handleEditPicture}
-          editingPictureId={editingPictureId}
-          onEditAuthor={handleEditAuthor}
-      />
+  pictures={pictures} 
+  onDelete={handleDeletePicture}  
+  onEdit={handleEditPicture} 
+  editingPictureId={editingPictureId}
+  onEditAuthor={(id, newAuthor, picture) => handleEditAuthor(id, newAuthor, picture)}
+/>
     </div>
     </main>
   )
@@ -80,3 +97,10 @@ export default FavoritesPage
     <li>Has de borrar estas instrucciones cuando lo tengas.</li>
     <li>Los estilos los has de realizar tú misma.</li>
 </ul> */}
+
+
+
+
+
+
+

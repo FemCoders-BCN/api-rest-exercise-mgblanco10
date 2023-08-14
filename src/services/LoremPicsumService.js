@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseURL = 'https://picsum.photos';
-const urlGetAll = '/v2/list';
+const urlGetAll = "/v2/list";
 const urlGetById = '/id/{image}/{size}';
 
 axios.defaults.baseURL = baseURL;
@@ -10,7 +10,7 @@ axios.defaults.headers.post['Accept'] = 'application/json';
 
 export const LoremPicsumService = () => {
   const getAll = () => {
-    const response = axios.get(urlGetAll);
+    const response = axios.get(`${baseURL}${urlGetAll}`);
     return response;
   };
   
